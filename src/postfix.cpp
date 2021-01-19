@@ -30,10 +30,10 @@ int set_priority(char x) {
 }
 
 bool check_symbol(char s) {
-	if (s != '(' && s != ')' && s != '+' && s != '-' && s != '*' && s != '/')
-		return true;
-	else
-		return false;
+  if (s != '(' && s != ')' && s != '+' && s != '-' && s != '*' && s != '/')
+    return true;
+  else
+    return false;
 }
 
 std::string delete_gaps(std::string str) {
@@ -59,20 +59,23 @@ std::string infix2postfix(std::string str) {
       for (int j = cur_i; j < i; j++)
         RPN.insert(rpn_index++, 1, str[j]);
       RPN.insert(rpn_index++, 1, ' ');
-		} else {
-			if (stack_operations.isEmpty() || set_priority(str[i]) == 0 || (set_priority(str[i]) > set_priority(stack_operations.get()))) {
-				stack_operations.push(str[i++]);
+    } else {
+      if (stack_operations.isEmpty() || set_priority(str[i]) == 0 ||
+        (set_priority(str[i]) > set_priority(stack_operations.get()))) {
+        stack_operations.push(str[i++]);
       } else {
-				// if it's common operation
+        // if it's common operation
         if (set_priority(str[i]) != 1) {
-          while (!stack_operations.isEmpty() && set_priority(stack_operations.get()) >= set_priority(str[i])) {
+          while (!stack_operations.isEmpty() &&
+            set_priority(stack_operations.get()) >= set_priority(str[i])) {
             RPN.insert(rpn_index++, 1, stack_operations.pop());
             RPN.insert(rpn_index++, 1, ' ');
           }
             stack_operations.push(str[i++]);
       } else {
           // if it's closing parenthesis
-          while (!stack_operations.isEmpty() && set_priority(stack_operations.get()) != 0) {
+          while (!stack_operations.isEmpty() &&
+            set_priority(stack_operations.get()) != 0) {
             RPN.insert(rpn_index++, 1, stack_operations.pop());
             RPN.insert(rpn_index++, 1, ' ');
           }
